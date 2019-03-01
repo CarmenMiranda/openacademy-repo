@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, time, exceptions
+from odoo import models, fields, api, time, exceptions, _
 from psycopg2 import IntegrityError
 from datetime import timedelta
 
@@ -13,7 +13,7 @@ class Course(models.Model):
     name = fields.Char(string="Title", required=True)
     description = fields.Text()
     responsible_id = fields.Many2one(
-            'res.users',string="Responsible",
+            'res.users',string= _("Responsible"),
             index=True, ondelete='set null',
             #default=lambda self, *a: self.env.uid)
             default=get_uid)
@@ -22,11 +22,11 @@ class Course(models.Model):
     _sql_constraints = [
         ('name_description_check',
          'CHECK( name != description )',
-         "The title of the course should not be the description"
+         _("The title of the course should not be the description")
         ),
         ('name_unique',
           'UNIQUE(name)',
-          "The course title must be unique",
+          _("The course title must be unique"),
           ),
     ]
 
@@ -34,11 +34,11 @@ class Course(models.Model):
         if default is None:
             default = {}
         copied_count = self.search_count([
-            ('name', 'ilike', 'Copy of %s%%' % (self.name))])
+            ('name', 'ilike', _('Copy of %s%%') % (self.name))])
         if not copied_count:
-            new_name = "Copy of %s" % (self.name)
+            new_name = _("Copy of %s") % (self.name)
         else:
-            new_name = "Copy of %s (%s)"% (self.name, copied_count)
+            new_name = _("Copy of %s (%s)")% (self.name, copied_count)
         default['name'] = new_name
         #try:
         return super(Course, self).copy(default)
@@ -106,16 +106,16 @@ class Session(models.Model):
             self.active = False
             return{
                'warning':{
-                    'title': "Incorrect 'seats' value",
-                    'message': "The number of available seats may not be negative",
+                    'title': _("Incorrect 'seats' value"),
+                    'message': _("The number of available seats may not be negative"),
                 }
             }
         if self.seats < len(self.attendee_ids):
             self.active = False
             return{
                 'warning':{
-                    'title': "Too many attendees",
-                    'message': "Increase seats or remove excess attendees",
+                    'title': _("Too many attendees"),
+                    'message': _("Increase seats or remove excess attendees"),
                 }
             }
         self.active = True
@@ -125,4 +125,4 @@ class Session(models.Model):
         for record in self.filtered('instructor_id'):
             if record.instructor_id in record.attendee_ids:
                 raise exceptions.ValidationError(
-                        "A session's instructor can't be an attendee")
+                        _("A session's instructor can't be an attendee"))
