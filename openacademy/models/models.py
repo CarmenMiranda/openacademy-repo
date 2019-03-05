@@ -76,7 +76,7 @@ class Session(models.Model):
 
     def _set_hours(self):
         for r in self:
-            r.duration = r,hours / 24
+            r.duration = r.hours / 24
 
     @api.depends('attendee_ids')
     def _get_attendees_count(self):
