@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 from odoo import http
 
-# class Openacademy(http.Controller):
-#     @http.route('/openacademy/openacademy/', auth='public')
-#     def index(self, **kw):
+class Openacademy(http.Controller):
+    @http.route('/openacademy/openacademy/', auth='public')
+    def index(self, **kw):
+        Teachers = http.request.env['openacademy.teachers']
+        return http.request.render('openacademy.index', {
+            'teachers': Teachers.search([]),
+        })
 #         return "Hello, world"
 
 #     @http.route('/openacademy/openacademy/objects/', auth='public')

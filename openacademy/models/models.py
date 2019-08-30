@@ -126,3 +126,8 @@ class Session(models.Model):
             if record.instructor_id in record.attendee_ids:
                 raise exceptions.ValidationError(
                         _("A session's instructor can't be an attendee"))
+
+class Teachers(models.Model):
+    _name = 'openacademy.teachers'
+
+    name = fields.Char()

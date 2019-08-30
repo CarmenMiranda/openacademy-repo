@@ -10,4 +10,14 @@
         <field name="name">Course 2</field>
         <field name="description">Course 2's description </field>
     </record>
+
+    <record id="padilla" model="openacademy.teachers">
+        <field name="name">Diana Padilla</field>
+    </record>
+    <record id="carroll" model="openacademy.teachers">
+        <field name="name">Jody Carroll</field>
+    </record>
+    <record id="vaughn" model="openacademy.teachers">
+        <field name="name">Lester Vaughn</field>
+    </record>
 </odoo>
