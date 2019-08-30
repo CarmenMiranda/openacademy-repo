@@ -210,7 +210,7 @@
         <field name="name">Sessions</field>
         <field name="res_model">openacademy.session</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,form,calendar,graph,kanban,gantt</field>
+        <field name="view_mode">tree,form,calendar,graph,kanban</field>
     </record>
 
     <menuitem id="session_menu" name="Sessions"
@@ -243,4 +243,34 @@
                 view_mode="form"
                 target="new"
                 key2="client_action_multi"/>
+
+    <record id="action_openacademy_teachers" model="ir.actions.act_window">
+        <field name="name">Openacademy teachers</field>
+        <field name="res_model">openacademy.teachers</field>
+    </record>
+
+    <record id="openacademy_teacher_form" model="ir.ui.view">
+        <field name="name">Openacademy teachers: form</field>
+        <field name="model">openacademy.teachers</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div>
+                        <label for="name"/>
+                        <field name="name"/>
+                    </div>
+                    <div>
+                        <label for="biography"/>
+                        <field name="biography"/>
+                    </div>
+            </sheet>
+          </form>
+        </field>
+      </record>
+
+      <menuitem id="menu_openacademy_content" parent="openacademy_menu"
+                name="Openacademy Content"/>
+      <menuitem id="menu_openacademy_content_teachers"
+                parent="menu_openacademy_content"
+                action="action_openacademy_teachers"/>
 </odoo>
