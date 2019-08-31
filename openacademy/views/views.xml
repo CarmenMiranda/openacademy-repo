@@ -10,6 +10,7 @@
                     <group>
                         <field name="name"/>
                         <field name="responsible_id"/>
+                        <field name="teacher_id"/>
                     </group>
                 </sheet>
                 <notebook>
@@ -28,6 +29,10 @@
                         </field>
                     </page>
                 </notebook>
+                <div class="oe_chatter">
+                  <field name="message_follower_ids" widget="mail_followers"/>
+                  <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>
@@ -40,6 +45,7 @@
                 <field name="name" string="Name Tree"/>
                 <field name="description" />
                 <field name="responsible_id"/>
+                <field name="teacher_id"/>
             </tree>
         </field>
     </record>
@@ -51,6 +57,7 @@
             <search string="Course Search">
                 <field name="name" string="Name Search"/>
                 <field name="description"/>
+                <field name="teacher_id"/>
                 <filter name="my_courses" string="My Courses"
                        domain="[('responsible_id','=', uid)]" />
                 <group string="Group By">
@@ -65,7 +72,7 @@
 
     <!-- actions opening views on models -->
     <record model="ir.actions.act_window" id="course_list_action">
-        <field name="name">Courses</field>
+        <field name="name">Openacademy Courses</field>
         <field name="res_model">openacademy.course</field>
         <field name="view_mode">tree,form</field>
         <field name="context" eval="{'search_default_my_courses': 1}"/>
@@ -263,6 +270,11 @@
                         <label for="biography"/>
                         <field name="biography"/>
                     </div>
+                    <field name="course_ids">
+                        <tree string="Courses" editable="bottom">
+                          <field name="name"/>
+                        </tree>
+                    </field>
             </sheet>
           </form>
         </field>

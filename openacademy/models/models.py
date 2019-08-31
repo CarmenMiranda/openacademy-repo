@@ -9,6 +9,7 @@ def get_uid(self, *a):
 
 class Course(models.Model):
     _name = 'openacademy.course'
+    _inherit = 'mail.thread'
 
     name = fields.Char(string="Title", required=True)
     description = fields.Text()
@@ -18,6 +19,7 @@ class Course(models.Model):
             #default=lambda self, *a: self.env.uid)
             default=get_uid)
     session_ids = fields.One2many('openacademy.session','course_id')
+    teacher_id = fields.Many2one('openacademy.teachers', string="Teacher")
 
     _sql_constraints = [
         ('name_description_check',
@@ -132,3 +134,5 @@ class Teachers(models.Model):
 
     name = fields.Char()
     biography = fields.Html()
+
+    course_ids = fields.One2many('openacademy.course', 'teacher_id', string="Courses")
