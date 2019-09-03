@@ -9,7 +9,8 @@ def get_uid(self, *a):
 
 class Course(models.Model):
     _name = 'openacademy.course'
-    _inherit = 'mail.thread'
+    # _inherit = 'mail.thread'
+    _inherit = 'product.template'
 
     name = fields.Char(string="Title", required=True)
     description = fields.Text()
